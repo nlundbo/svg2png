@@ -5,28 +5,25 @@ import os
 
 filePath = "/home/niklas/android/workspace/PokerHand/res/drawable/"
 name = "white_s_q.svg"
-def convertSvgFolder(path):
-    map(lambda x : convertSvg2Png(path,x),  os.listdir(path))
-#    files_in_dir = os.listdir(path)
- #   for file_in_dir in files_in_dir:
-  #      print file_in_dir
-
+def convertSvgFolder(path, outputDir):
+    map(lambda x : convertSvg2Png(path, x, outputDir),  os.listdir(path))
 
 def convertSvg2Png(path, svgFileName,output_dir):
     handler = rsvg.Handle(path+svgFileName)
-    x,y = handler.props.width,handler.props.height 
-    img = cairo.ImageSurface(cairo.FORMAT_ARGB32, x,y)
-    ctx = cairo.Context(img)
-    handler.render_cairo(ctx)
-    img.write_to_png( svgFileName.replace(".svg",".png"))
+    img = cairo.ImageSurface(cairo.FORMAT_ARGB32, handler.props.width,handler.props.height)
+    handler.render_cairo(cairo.Context(img))
+    img.write_to_png( output_dir + svgFileName.replace(".svg",".png"))
 
 def main(argv):
     usage = 'Usage: '+ argv[0] + " <Path to SVG>\n"
     usage = usage + "Converts all svg files to png."
+    print argv
     if len(argv) == 1:
         print usage
     elif len(argv) == 2:
-        convertSvgFolder(argv[1])
+        convertSvgFolder(argv[1],"")
+    elif len(argv) == 3:
+        convertSvgFolder(argv[1],argv[2])
     else:
         print usage
 
