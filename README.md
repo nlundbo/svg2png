@@ -1,0 +1,1 @@
+Simple script that converts a directory of svg files to png
