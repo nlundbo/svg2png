@@ -4,7 +4,9 @@ import sys
 import os
 
 def convertSvgFolder(path, outputDir):
-    map(lambda x : convertSvg2Png(path, x, outputDir),  os.listdir(path))
+    fileList = os.listdir(path)
+    map(lambda x : convertSvg2Png(path, x, outputDir), fileList)
+    print len(fileList), " file(s) written to folder ", outputDir
 
 def convertSvg2Png(path, svgFileName,output_dir):
     handler = rsvg.Handle(path+svgFileName)
@@ -15,7 +17,6 @@ def convertSvg2Png(path, svgFileName,output_dir):
 def main(argv):
     usage = 'Usage: '+ argv[0] + " <Path to SVG>\n"
     usage = usage + "Converts all svg files to png."
-    print argv
     if len(argv) == 1:
         print usage
     elif len(argv) == 2:
