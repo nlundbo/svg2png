@@ -3,8 +3,6 @@ import rsvg
 import sys
 import os
 
-filePath = "/home/niklas/android/workspace/PokerHand/res/drawable/"
-name = "white_s_q.svg"
 def convertSvgFolder(path, outputDir):
     map(lambda x : convertSvg2Png(path, x, outputDir),  os.listdir(path))
 
